@@ -1,9 +1,9 @@
-import styled from "styled-components";
-import { css } from "styled-components";
+import styled from 'styled-components';
+import { css } from 'styled-components';
 
 export const PreferencesFilterWrapper = styled.div`
-  display:flex;
-  justify-content:center;
+  display: flex;
+  justify-content: center;
   gap: 20px;
 `;
 
@@ -47,14 +47,14 @@ export const CarrouselDragField = styled.div`
     justify-content: center;
     align-items: center;
     max-width: 580px;
-    width:100%;
+    width: 100%;
 
-    .todos{
-      gap:5px;
-      display:flex;
-      flex-wrap:wrap;
-      justify-content:center;
-      align-items:center;
+    .todos {
+      gap: 5px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
     }
   `}
 `;
@@ -77,9 +77,10 @@ export const DragDropDivs = styled.div`
     text-align: center;
     background-color: ${theme.colors.white};
     height: 180px;
+    border-radius: 7px;
 
     h2 {
-      color: ${theme.colors.purple["500"]};
+      color: ${theme.colors.purple['500']};
       font-size: 1rem;
       font-weight: 500;
       margin-bottom: 5px;
