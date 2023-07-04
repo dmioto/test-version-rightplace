@@ -1,11 +1,11 @@
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import L from 'leaflet';
+import L, { LatLngExpression } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 // Importar o ícone padrão e substituir o ícone padrão do Leaflet
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
-delete L.Icon.Default.prototype._getIconUrl;
+delete (L.Icon.Default as any).prototype._getIconUrl;
 
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: icon,
