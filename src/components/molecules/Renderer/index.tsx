@@ -13,7 +13,7 @@ L.Icon.Default.mergeOptions({
   shadowUrl: iconShadow,
 });
 
-const center = [40.7128, -74.006];
+const center : LatLngExpression = [40.7128, -74.006];
 
 const MapWrapper = () => {
   return (
