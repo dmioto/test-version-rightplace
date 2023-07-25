@@ -3,24 +3,36 @@ import { MapContainer, TileLayer, Marker, Popup, ZoomControl } from 'react-leafl
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-// Importar o ícone padrão e substituir o ícone padrão do Leaflet
+// Import the icon images for the marker
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
-delete L.Icon.Default.prototype._getIconUrl;
 
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: icon,
-  iconUrl: icon,
-  shadowUrl: iconShadow,
-});
+// Extend the Default class to add custom icon URLs
+class CustomIcon extends L.Icon.Default {
+  constructor(options) {
+    super(options);
+    this.options = { ...L.Icon.Default.prototype.options, ...options };
+    this._getIconUrl = function (name) {
+      return icon;
+    };
+    this._getIconRetinaUrl = function (name) {
+      return icon;
+    };
+    this._getShadowUrl = function () {
+      return iconShadow;
+    };
+  }
+}
 
-const center = [40.7128, -74.006];
+const center: [number, number] = [40.7128, -74.006]; // LatLngTuple type for center
 
 const MapWrapper = () => {
   const theme = {
     // Replace this with the actual theme object or context you are using
     direction: 'ltr', // Set the 'direction' property accordingly
   };
+
+  const zoomControlPosition = 'bottom' + (theme.direction === 'rtl' ? 'left' : 'right');
 
   return (
     <div
@@ -47,12 +59,13 @@ const MapWrapper = () => {
           maxZoom={17}
         />
 
-        <Marker position={center}>
+        {/* Set the custom icon for the marker */}
+        <Marker position={center} icon={new CustomIcon()}>
           <Popup>Nova Iorque</Popup>
         </Marker>
 
         {/* Add the ZoomControl component with dynamic position */}
-        <ZoomControl position={'bottom' + (theme.direction === 'rtl' ? 'left' : 'right')} />
+        <ZoomControl position={zoomControlPosition as ControlPosition} />
       </MapContainer>
     </div>
   );
