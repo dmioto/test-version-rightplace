@@ -21,7 +21,7 @@ const PreferencesFilter = ({ onClickGenarete }: PreferencesFilterProps) => {
     initialValues: {
       characteristicsArray: [
         {
-          name: 'Moust-Have',
+          name: 'Must-Have',
           isBorder: true,
           indicators: [],
           id: 1,
@@ -59,7 +59,7 @@ const PreferencesFilter = ({ onClickGenarete }: PreferencesFilterProps) => {
       form.insertListItem('allIndicators', filteredFromUp[0]);
     }
 
-    if (result.destination.droppableId === 'Moust-Have') {
+    if (result.destination.droppableId === 'Must-Have') {
       form.insertListItem(
         'characteristicsArray.0.indicators',
         filteredIndicatorSource[0],
