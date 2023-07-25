@@ -1,30 +1,19 @@
-import React from 'react';
 import { MapContainer, TileLayer, Marker, Popup, ZoomControl } from 'react-leaflet';
-import L from 'leaflet';
+import L, { LatLngExpression } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-// Import the icon images for the marker
+// Importar o ícone padrão e substituir o ícone padrão do Leaflet
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+delete (L.Icon.Default as any).prototype._getIconUrl;
 
-// Extend the Default class to add custom icon URLs
-class CustomIcon extends L.Icon.Default {
-  constructor(options) {
-    super(options);
-    this.options = { ...L.Icon.Default.prototype.options, ...options };
-    this._getIconUrl = function (name) {
-      return icon;
-    };
-    this._getIconRetinaUrl = function (name) {
-      return icon;
-    };
-    this._getShadowUrl = function () {
-      return iconShadow;
-    };
-  }
-}
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: icon,
+  iconUrl: icon,
+  shadowUrl: iconShadow,
+});
 
-const center: [number, number] = [40.7128, -74.006]; // LatLngTuple type for center
+const center : LatLngExpression = [40.7128, -74.006];
 
 const MapWrapper = () => {
   const theme = {
@@ -32,7 +21,7 @@ const MapWrapper = () => {
     direction: 'ltr', // Set the 'direction' property accordingly
   };
 
-  const zoomControlPosition = 'bottom' + (theme.direction === 'rtl' ? 'left' : 'right');
+  const zoomControlPosition = theme.direction === 'rtl' ? 'bottomleft' : 'bottomright';
 
   return (
     <div
@@ -59,13 +48,12 @@ const MapWrapper = () => {
           maxZoom={17}
         />
 
-        {/* Set the custom icon for the marker */}
-        <Marker position={center} icon={new CustomIcon()}>
+        <Marker position={center}>
           <Popup>Nova Iorque</Popup>
         </Marker>
 
         {/* Add the ZoomControl component with dynamic position */}
-        <ZoomControl position={zoomControlPosition as ControlPosition} />
+        <ZoomControl position={zoomControlPosition} />
       </MapContainer>
     </div>
   );
